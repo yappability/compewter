@@ -15,16 +15,16 @@ in {
     #   enable = true;
     #   package = pkgs.me.bun;
     # };
-    vesktop = {
-      enable = true;
-      package = lib.me.patchOutput unstable.vesktop ''
-        rm -r $out/share/icons
-        mkdir -p $out/share/icons/hicolor/scalable/apps/
-        cp ${
-          ./icons/vesktop.svg
-        } $out/share/icons/hicolor/scalable/apps/vesktop.svg
-      '';
-    };
+    # vesktop = {
+    #   enable = true;
+    #   package = lib.me.patchOutput unstable.vesktop ''
+    #     rm -r $out/share/icons
+    #     mkdir -p $out/share/icons/hicolor/scalable/apps/
+    #     cp ${
+    #       ./icons/vesktop.svg
+    #     } $out/share/icons/hicolor/scalable/apps/vesktop.svg
+    #   '';
+    # };
     nix-index-database.comma.enable = true;
     nushell = {
       enable = true;
