@@ -19,7 +19,6 @@ in {
       monophony
       g4music
       amberol
-      armcord
       tor-browser
       newsflash
       whois
