@@ -1,5 +1,5 @@
 { pkgs, ... }: {
-  nushell = {
+  programs.nushell = {
     enable = true;
     shellAliases = {
       switch = "sudo nixos-rebuild switch --fast --print-build-logs";
