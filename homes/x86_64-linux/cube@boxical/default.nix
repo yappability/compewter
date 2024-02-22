@@ -3,7 +3,7 @@
     # Include the packages.
     ./packages.nix
     # Include the program settings.
-    ./programs.nix
+    ./programs
   ];
 
   home.stateVersion = "24.05";
