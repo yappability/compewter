@@ -12,10 +12,10 @@ in
     firefox.enable = true;
     vscode.enable = true;
     obs-studio.enable = true;
-    bun = {
-      enable = true;
-      package = pkgs.me.bun;
-    };
+    # bun = {
+    #   enable = true;
+    #   package = pkgs.me.bun;
+    # };
     # vesktop = {
     #   enable = true;
     #   package = lib.me.patchOutput unstable.vesktop ''
