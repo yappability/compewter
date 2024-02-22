@@ -1,23 +1,10 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
-, makeBinaryWrapper
-, pkg-config
-, libGL
-, libxkbcommon
-, xorg
-, wayland
-, vulkan-headers
-, wineWowPackages
-, fetchpatch
-, inputs
-, pkgs
-}:
+{ lib, buildGoModule, fetchFromGitHub, makeBinaryWrapper, pkg-config, libGL
+, libxkbcommon, xorg, wayland, vulkan-headers, wineWowPackages, fetchpatch
+, inputs, pkgs }:
 let
   # wine-staging doesn't support overrideAttrs for now
   wine = inputs.nix-gaming.packages.${pkgs.system}.wine-ge;
-in
-buildGoModule rec {
+in buildGoModule rec {
   pname = "vinegar";
   version = "1.6.1";
 
@@ -31,7 +18,16 @@ buildGoModule rec {
   vendorHash = "sha256-Ex6PRd3rD2jbLXlY36koNvZF3P+gAZTE9hExIfOw9CE=";
 
   nativeBuildInputs = [ pkg-config makeBinaryWrapper ];
-  buildInputs = [ libGL libxkbcommon xorg.libX11 xorg.libXcursor xorg.libXfixes wayland vulkan-headers wine ];
+  buildInputs = [
+    libGL
+    libxkbcommon
+    xorg.libX11
+    xorg.libXcursor
+    xorg.libXfixes
+    wayland
+    vulkan-headers
+    wine
+  ];
 
   buildPhase = ''
     runHook preBuild
@@ -47,11 +43,12 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram $out/bin/vinegar \
-      --prefix PATH : ${lib.makeBinPath [wine]}
+      --prefix PATH : ${lib.makeBinPath [ wine ]}
   '';
 
   meta = with lib; {
-    description = "An open-source, minimal, configurable, fast bootstrapper for running Roblox on Linux";
+    description =
+      "An open-source, minimal, configurable, fast bootstrapper for running Roblox on Linux";
     homepage = "https://github.com/vinegarhq/vinegar";
     changelog = "https://github.com/vinegarhq/vinegar/releases/tag/v${version}";
     mainProgram = "vinegar";

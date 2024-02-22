@@ -6,8 +6,7 @@ let
     config.allowUnfree = true;
   };
   charliepkgs = inputs.charliepkgs;
-in
-{
+in {
   programs = {
     firefox.enable = true;
     vscode.enable = true;

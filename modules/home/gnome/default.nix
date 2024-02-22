@@ -13,10 +13,7 @@
         paperwm
         smile-complementary-extension
         user-themes
-      ] ++ [
-        pkgs.adw-gtk3
-        pkgs.gnome.gnome-tweaks
-      ];
+      ] ++ [ pkgs.adw-gtk3 pkgs.gnome.gnome-tweaks ];
 
     dconf.settings = {
       "org/gnome/mutter" = {
