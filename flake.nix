@@ -61,7 +61,7 @@
       homes.users."cube@boxical".modules = with inputs;
         [
           nix-index-database.hmModules.nix-index
-          # charliepkgs.homeModules.vesktop
+          charliepkgs.homeModules.vesktop
         ];
     };
 }

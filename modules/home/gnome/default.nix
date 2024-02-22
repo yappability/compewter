@@ -43,8 +43,7 @@
         favorite-apps = [
           "firefox-nightly.desktop"
           "code.desktop"
-          # "vesktop.desktop"
-          "armcord.desktop"
+          "vesktop.desktop"
           "org.gnome.Console.desktop"
           "obsidian.desktop"
           "org.prismlauncher.PrismLauncher.desktop"
