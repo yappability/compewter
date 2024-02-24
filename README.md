@@ -1,4 +1,4 @@
-<h1 align="center">boxical/dotfiles</h1>
+<h1 align="center">boxical/compewter</h1>
 
 <p align="center">
  <a href="https://nixos.wiki/wiki/Flakes" target="_blank">
