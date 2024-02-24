@@ -21,6 +21,7 @@
     # Import session variables
     ./variables.nix
     # Import network configuration
+    ./network.nix
   ];
 
   security.hardened = true; # Enable NixOS hardening
