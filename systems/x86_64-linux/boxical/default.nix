@@ -20,6 +20,7 @@
     ./services
     # Import session variables
     ./variables.nix
+    # Import network configuration
   ];
 
   security.hardened = true; # Enable NixOS hardening
@@ -27,10 +28,6 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.hostName = "boxical"; # Define your hostname.
-  networking.networkmanager.enable =
-    true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "America/New_York";

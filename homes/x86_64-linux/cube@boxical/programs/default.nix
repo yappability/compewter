@@ -1,9 +1,5 @@
 { ... }: {
-  imports = [
-    ./git.nix
-    ./vesktop.nix
-    ./nushell.nix
-  ];
+  imports = [ ./git.nix ./vesktop.nix ./nushell.nix ];
 
   programs = {
     firefox.enable = true;

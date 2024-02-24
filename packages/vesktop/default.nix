@@ -1,27 +1,10 @@
-{ lib
-, stdenv
-, stdenvNoCC
-, fetchFromGitHub
-, substituteAll
-, makeWrapper
-, makeDesktopItem
-, copyDesktopItems
-, vencord
-, electron
-, pipewire
-, libpulseaudio
-, libicns
-, libnotify
-, jq
-, moreutils
-, cacert
-, nodePackages
-, speechd
-, withTTS ? true
+{ lib, stdenv, stdenvNoCC, fetchFromGitHub, substituteAll, makeWrapper
+, makeDesktopItem, copyDesktopItems, vencord, electron, pipewire, libpulseaudio
+, libicns, libnotify, jq, moreutils, cacert, nodePackages, speechd, withTTS ?
+  true
   # Enables the use of vencord from nixpkgs instead of
   # letting vesktop manage it's own version
-, withSystemVencord ? true
-}:
+, withSystemVencord ? true }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "vesktop";
   version = "1.5.0";
@@ -35,18 +18,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   # NOTE: This requires pnpm 8.10.0 or newer
   # https://github.com/pnpm/pnpm/pull/7214
-  pnpmDeps =
-    assert lib.versionAtLeast nodePackages.pnpm.version "8.10.0";
+  pnpmDeps = assert lib.versionAtLeast nodePackages.pnpm.version "8.10.0";
     stdenvNoCC.mkDerivation {
       pname = "${finalAttrs.pname}-pnpm-deps";
       inherit (finalAttrs) src version patches ELECTRON_SKIP_BINARY_DOWNLOAD;
 
-      nativeBuildInputs = [
-        jq
-        moreutils
-        nodePackages.pnpm
-        cacert
-      ];
+      nativeBuildInputs = [ jq moreutils nodePackages.pnpm cacert ];
 
       pnpmPatch = builtins.toJSON {
         pnpm.supportedArchitectures = {
@@ -80,16 +57,14 @@ stdenv.mkDerivation (finalAttrs: {
       outputHash = "sha256-y7lOkFNcsJlRCiTdTb5AW4a5WXov2+bYyHjuXJHAubQ=";
     };
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    nodePackages.pnpm
-    nodePackages.nodejs
-    makeWrapper
-  ];
+  nativeBuildInputs =
+    [ copyDesktopItems nodePackages.pnpm nodePackages.nodejs makeWrapper ];
 
-  patches = [
-    ./disable_update_checking.patch
-  ] ++ lib.optional withSystemVencord (substituteAll { inherit vencord; src = ./use_system_vencord.patch; });
+  patches = [ ./disable_update_checking.patch ]
+    ++ lib.optional withSystemVencord (substituteAll {
+      inherit vencord;
+      src = ./use_system_vencord.patch;
+    });
 
   ELECTRON_SKIP_BINARY_DOWNLOAD = 1;
 
@@ -115,37 +90,34 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   # this is consistent with other nixpkgs electron packages and upstream, as far as I am aware
-  installPhase =
-    let
-      # this is mainly required for venmic
-      libPath = lib.makeLibraryPath ([
-        libpulseaudio
-        libnotify
-        pipewire
-        stdenv.cc.cc.lib
-      ] ++ lib.optional withTTS speechd);
-    in
-    ''
-      runHook preInstall
+  installPhase = let
+    # this is mainly required for venmic
+    libPath = lib.makeLibraryPath
+      ([ libpulseaudio libnotify pipewire stdenv.cc.cc.lib ]
+        ++ lib.optional withTTS speechd);
+  in ''
+    runHook preInstall
 
-      mkdir -p $out/opt/Vesktop/resources
-      cp dist/linux-*unpacked/resources/app.asar $out/opt/Vesktop/resources
+    mkdir -p $out/opt/Vesktop/resources
+    cp dist/linux-*unpacked/resources/app.asar $out/opt/Vesktop/resources
 
-      pushd build
-      ${libicns}/bin/icns2png -x icon.icns
-      for file in icon_*x32.png; do
-        file_suffix=''${file//icon_}
-        install -Dm0644 $file $out/share/icons/hicolor/''${file_suffix//x32.png}/apps/vesktop.png
-      done
+    pushd build
+    ${libicns}/bin/icns2png -x icon.icns
+    for file in icon_*x32.png; do
+      file_suffix=''${file//icon_}
+      install -Dm0644 $file $out/share/icons/hicolor/''${file_suffix//x32.png}/apps/vesktop.png
+    done
 
-      makeWrapper ${electron}/bin/electron $out/bin/vesktop \
-        --prefix LD_LIBRARY_PATH : ${libPath} \
-        --add-flags $out/opt/Vesktop/resources/app.asar \
-        ${lib.optionalString withTTS "--add-flags \"--enable-speech-dispatcher\""} \
-        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
+    makeWrapper ${electron}/bin/electron $out/bin/vesktop \
+      --prefix LD_LIBRARY_PATH : ${libPath} \
+      --add-flags $out/opt/Vesktop/resources/app.asar \
+      ${
+        lib.optionalString withTTS ''--add-flags "--enable-speech-dispatcher"''
+      } \
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
   desktopItems = [
     (makeDesktopItem {
@@ -160,9 +132,7 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  passthru = {
-    inherit (finalAttrs) pnpmDeps;
-  };
+  passthru = { inherit (finalAttrs) pnpmDeps; };
 
   meta = with lib; {
     description = "An alternate client for Discord with Vencord built-in";
