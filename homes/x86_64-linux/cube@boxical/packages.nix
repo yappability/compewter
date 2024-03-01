@@ -33,6 +33,7 @@ in {
       usbmuxd
     ] ++ [
       inputs.nix-software-center.packages.${pkgs.system}.nix-software-center
+      pkgs.me.vinegar
     ];
 }
 
