@@ -31,6 +31,7 @@ in {
       blender
       fastfetch
       usbmuxd
+      premid
     ] ++ [
       inputs.nix-software-center.packages.${pkgs.system}.nix-software-center
       pkgs.me.vinegar
