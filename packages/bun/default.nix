@@ -3,7 +3,7 @@
 
 # unforunately, the maintainer of the original bun package in nixpkgs, didnt put the baseline executable for bun, and since my computer is pretty old, I need to baseline executable to use bun.
 stdenvNoCC.mkDerivation rec {
-  version = "1.0.28";
+  version = "1.0.30";
   pname = "bun";
 
   src = passthru.sources.${stdenvNoCC.hostPlatform.system} or (throw
