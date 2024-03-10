@@ -35,6 +35,7 @@ in {
     ] ++ [
       inputs.nix-software-center.packages.${pkgs.system}.nix-software-center
       pkgs.me.vinegar
+      pkgs.me.bun
     ];
 }
 
