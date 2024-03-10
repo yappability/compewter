@@ -62,7 +62,7 @@ stdenvNoCC.mkDerivation rec {
         url =
           "https://github.com/oven-sh/bun/releases/download/bun-v${version}/bun-linux-x64-baseline.zip";
         hash =
-          "sha256-k9q2idr4zMg+gWanJMlSsz2QcQFAhw3tSs2zBf6496E="; # get the new hash by changing version, building, and replace this hash with the hash the one that was specified in the error
+          "sha256-1zkS/hbQI0345edu7n4aohaM6oIpKR6H7SBdp99ur+0="; # get the new hash by changing version, building, and replace this hash with the hash the one that was specified in the error
       };
     };
     updateScript = writeShellScript "update-bun" ''
