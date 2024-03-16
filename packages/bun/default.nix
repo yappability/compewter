@@ -3,7 +3,7 @@
 
 # unforunately, the maintainer of the original bun package in nixpkgs, didnt put the baseline executable for bun, and since my computer is pretty old, I need to baseline executable to use bun.
 stdenvNoCC.mkDerivation rec {
-  version = "1.0.30";
+  version = "1.0.31";
   pname = "bun";
 
   src = passthru.sources.${stdenvNoCC.hostPlatform.system} or (throw
@@ -62,7 +62,7 @@ stdenvNoCC.mkDerivation rec {
         url =
           "https://github.com/oven-sh/bun/releases/download/bun-v${version}/bun-linux-x64-baseline.zip";
         hash =
-          "sha256-1zkS/hbQI0345edu7n4aohaM6oIpKR6H7SBdp99ur+0="; # get the new hash by changing version, building, and replace this hash with the hash the one that was specified in the error
+          "sha256-Air2LtDf6deQYJQ5BvwGj6/9QP1pdp+Ru5xgPfM9sRw="; # get the new hash by changing version, building, and replace this hash with the hash the one that was specified in the error
       };
     };
     updateScript = writeShellScript "update-bun" ''
