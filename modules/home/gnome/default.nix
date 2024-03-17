@@ -36,7 +36,7 @@
           "just-perfection-desktop@just-perfection"
           "hotedge@jonathan.jdoda.ca"
           "waylandorx11@injcristianrojas.github.com"
-          "paperwm@paperwm.github.com"
+          # "paperwm@paperwm.github.com" - I dont like paperWM that much.
           "smile-extension@mijorus.it"
           "user-theme@gnome-shell-extensions.gcampax.github.com"
         ];

@@ -32,6 +32,7 @@ in {
       fastfetch
       usbmuxd
       premid
+      figma-linux
     ] ++ [
       inputs.nix-software-center.packages.${pkgs.system}.nix-software-center
       pkgs.me.vinegar
