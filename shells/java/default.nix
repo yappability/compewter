@@ -2,6 +2,6 @@
 pkgs.mkShell {
   packages = [
     pkgs.zulu17
-    pkgs.gradle
+    pkgs.gradle_7
   ];
 }
